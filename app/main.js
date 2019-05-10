@@ -1,2 +1,11 @@
-const rootElement = document.getElementById('root');
-fetch('http://localhost:3000/data').then(data => console.log(data), () => {});
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './app';
+
+const Page = () => (
+    <div>
+       <App></App>
+    </div>
+);
+
+ReactDOM.render(<Page />, document.getElementById('root'));

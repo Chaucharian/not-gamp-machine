@@ -7,5 +7,9 @@
     "start": "parcel index.html"
   },
   "author": "AS",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
 }

@@ -3,6 +3,8 @@
 #include <ESP8266HTTPClient.h>
 #include <Wire.h>
 #include "Adafruit_HTU21DF.h"
+#include <TimeLib.h>
+#include <TimeAlarms.h>
  
 #define D0 16
 #define D1 5 // I2C Bus SCL (clock)
@@ -20,10 +22,13 @@
 ESP8266WiFiMulti WiFiMulti;
 Adafruit_HTU21DF htu = Adafruit_HTU21DF();
 
-const char* ssid = "Fibertel WiFi160 2.4GHz";
-const char* password = "0142025191";
-const int relayPin = D4;
-boolean isOn = false;
+const char* SSID = "Fibertel WiFi160 2.4GHz";
+const char* PASSWORD = "0142025191";
+const int RELAYPIN = D6;
+const int MAX_TEMPERATURE = 28;
+const int MIN_TEMPERATURE = 22;
+const int MAX_HUMEDITY = 75;
+const int MIN_HUMEDITY = 40;
 float temperature = 0;
 float humedity = 0;
 
@@ -39,11 +44,11 @@ void sendData(const float& temperature, const float& humedity) {
 
     getData = "?h=" + humedityToString + "&t=" + temperatureToString ;  //Note "?" added at front
     link = "http://192.168.0.142:3000/set" + getData;
-     USE_SERIAL.print(link);
 
+    USE_SERIAL.print(link);
     USE_SERIAL.print("[HTTP] begin...\n");
 
-    // configure traged server and url
+    // make call
     http.begin(link);
 
     USE_SERIAL.print("[HTTP] GET...\n");
@@ -68,9 +73,27 @@ void sendData(const float& temperature, const float& humedity) {
   }
 }
 
-void setup(void) {
+void changeFansState(boolean state) {
+  if(state) {
+    digitalWrite(RELAYPIN, LOW); // on
+  } else{
+    digitalWrite(RELAYPIN, HIGH); // off
+  }
+}
+
+void verifyConditions() {
+  if(temperature < MIN_TEMPERATURE) {
+    changeFansState(false);
+  } else if(temperature > MAX_TEMPERATURE) {
+    changeFansState(true);
+  } else {
+    changeFansState(false);
+  }
+}
+
+void setup() {
+  pinMode(RELAYPIN, OUTPUT);
   Serial.begin(9600);
-  pinMode(relayPin, OUTPUT);
 
   Serial.println("HTU21D-F initializing");
  
@@ -79,38 +102,23 @@ void setup(void) {
     while (1);
   }
 
+  setTime(8,29,0,1,1,11); // set time to Saturday 8:29:00am Jan 1 2011
+  Alarm.timerRepeat(5, verifyConditions); // timer for every 15 minutes
+
   // Initialize wifi parameters
   WiFi.mode(WIFI_STA);
-  WiFiMulti.addAP(ssid, password);
+  WiFiMulti.addAP(SSID, PASSWORD);
 }
 
-void loop(void) {
+void loop() {
   temperature = htu.readTemperature();
   humedity = htu.readHumidity();
   Serial.print("Temp: ");
   Serial.print(temperature);
   Serial.print("\t\tHum: ");
   Serial.println(humedity);
-  delay(500);
+    
+  Alarm.delay(1000); // wait one second between clock display
   sendData(temperature, humedity);
 }
-/*
-void handleRoot() {
-  digitalWrite(led, 1);
-  server.send(200, "text/plain", "hello from esp8266!");
-  digitalWrite(led, 0);
-}
-
-void _on() {
-    digitalWrite(relayPin, LOW);
-    isOn = true;
-    server.send(200, "text/plain", "ok light turning on");
-}
-void _off() {
-    digitalWrite(relayPin, HIGH);
-    isOn = false;
-    server.send(200, "text/plain", "ok light is turning off");
-}*/
-
-
 
