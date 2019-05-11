@@ -29,6 +29,7 @@ const int MAX_TEMPERATURE = 28;
 const int MIN_TEMPERATURE = 22;
 const int MAX_HUMEDITY = 75;
 const int MIN_HUMEDITY = 40;
+const char* certificate = "08:3B:71:72:02:43:6E:CA:ED:42:86:93:BA:7E:DF:81:C4:BC:62:30";
 float temperature = 0;
 float humedity = 0;
 
@@ -43,13 +44,13 @@ void sendData(const float& temperature, const float& humedity) {
     humedityToString = String(humedity,2);
 
     getData = "?h=" + humedityToString + "&t=" + temperatureToString ;  //Note "?" added at front
-    link = "http://192.168.0.142:3000/set" + getData;
+    link = "https://not-gamp-machine-api.herokuapp.com/set" + getData;
 
     USE_SERIAL.print(link);
     USE_SERIAL.print("[HTTP] begin...\n");
 
     // make call
-    http.begin(link);
+    http.begin(link, certificate);
 
     USE_SERIAL.print("[HTTP] GET...\n");
     // start connection and send HTTP header
@@ -119,6 +120,7 @@ void loop() {
   Serial.println(humedity);
     
   Alarm.delay(1000); // wait one second between clock display
+  delay(500);
   sendData(temperature, humedity);
 }
 
