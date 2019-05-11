@@ -4,7 +4,7 @@
   "description": "front end to visualize gamp machine data",
   "main": "main.js",
   "scripts": {
-    "start": "parcel index.html"
+    "start": "parcel ./src/index.html"
   },
   "author": "AS",
   "license": "MIT",

@@ -12,7 +12,7 @@ export default class App extends Component {
     }
 
     fetchData() {
-        fetch('http://localhost:3000/data')
+        fetch('https://not-gamp-machine-api.herokuapp.com/data')
         .then(response => response.json())
         .then(data => {
             const { humedity, temperature } = data;
