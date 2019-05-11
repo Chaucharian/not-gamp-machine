@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+const port = process.env.PORT || 8080;
 
 export default class App extends Component {
 
@@ -12,7 +13,7 @@ export default class App extends Component {
     }
 
     fetchData() {
-        fetch('https://not-gamp-machine-api.herokuapp.com/data')
+        fetch('/data')
         .then(response => response.json())
         .then(data => {
             const { humedity, temperature } = data;

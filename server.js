@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
+const fetch = require("node-fetch");
 const port = process.env.PORT || 8080;
 const app = express();
 
@@ -11,6 +12,19 @@ app.use(express.static('dist'));
 // send the user to index html page inspite of the url
 app.get('/', (req, res) => {
   res.sendFile(__dirname+'/dist/index.html');
+});
+
+app.get('/data', (req, res) => {
+  fetch('https://not-gamp-machine-api.herokuapp.com/data')
+  .then(res => res.json())
+  .then(function(data) {
+    const { humedity, temperature } = data;
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json({ humedity, temperature });
+  })
+  .catch(function(err) {
+    // handle the error here
+  })
 });
 
 app.listen(port, '0.0.0.0',() => console.log(`Serving UI at ${port}!`));
