@@ -5,12 +5,15 @@
   "main": "main.js",
   "scripts": {
     "start": "node server.js",
+    "develop": "parcel ./src/index.html",
     "build": "parcel build ./src/index.html",
     "heroku-postbuild": "parcel build ./src/index.html"
   },
   "author": "AS",
   "license": "MIT",
   "dependencies": {
+    "@material-ui/core": "^4.0.0",
+    "@material-ui/icons": "^4.0.0",
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "node-fetch": "^2.5.0",

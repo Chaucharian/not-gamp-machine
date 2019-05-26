@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-const port = process.env.PORT || 8080;
+import DisplayData from './list';
 
 export default class App extends Component {
 
@@ -24,14 +24,9 @@ export default class App extends Component {
 
     render() {
         const { humedity, temperature } = this.state;
-        return ( 
-        <div>
-            <div id="temperature">
-                <h2>Temperature C: {temperature}</h2>
-            </div>
-            <div id="temperature">
-                <h2>Humedity %: {humedity}</h2>
-            </div>
+        return (
+         <div>
+            <DisplayData temperature={temperature} humedity={humedity}/>
         </div>
         );
     }
