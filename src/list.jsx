@@ -14,6 +14,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
     maxWidth: 360,
+    fontSize:,
     fontWeight : '800 !important',
     backgroundColor: theme.palette.grey,
   }

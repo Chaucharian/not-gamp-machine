@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Container from '@material-ui/core/Container';
 import DisplayData from './list';
 
 export default class App extends Component {
@@ -25,9 +26,11 @@ export default class App extends Component {
     render() {
         const { humedity, temperature } = this.state;
         return (
-         <div>
-            <DisplayData temperature={temperature} humedity={humedity}/>
-        </div>
+        <Container maxWidth="sm">
+            <div>
+                <DisplayData temperature={temperature} humedity={humedity}/>
+            </div>
+        </Container>
         );
     }
 }
