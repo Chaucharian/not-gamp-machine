@@ -1,5 +1,4 @@
 const express = require('express');
-const path = require('path');
 const cors = require('cors');
 const fetch = require("node-fetch");
 const port = process.env.PORT || 8080;
@@ -24,6 +23,20 @@ app.get('/data', (req, res) => {
   })
   .catch(function(err) {
     // handle the error here
+  })
+});
+
+app.get('/chartData', (req, res) => {
+  const { from, to } = req.query;
+  fetch(`https://not-gamp-machine-api.herokuapp.com/getRange?from=${from}&to=${to}`)
+  .then(res => res.json())
+  .then( data => {
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(data);
+  })
+  .catch(function(err) {
+    // handle the error here
+    console.log(`Error ${err}`);
   })
 });
 
