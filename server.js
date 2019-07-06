@@ -23,6 +23,7 @@ app.get('/data', (req, res) => {
   })
   .catch(function(err) {
     // handle the error here
+    console.log(`/data end-point error: ${err}`);
   })
 });
 
@@ -36,7 +37,7 @@ app.get('/chartData', (req, res) => {
   })
   .catch(function(err) {
     // handle the error here
-    console.log(`Error ${err}`);
+    console.log(`/chartData end-point error: ${err}`);
   })
 });
 

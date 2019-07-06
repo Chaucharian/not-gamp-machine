@@ -39,7 +39,7 @@ function DisplayData(props) {
             <WavesIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Humedity" secondary={humedity} />
+        <ListItemText primary="Humidity" secondary={humedity} />
       </ListItem>
     </List>
   );

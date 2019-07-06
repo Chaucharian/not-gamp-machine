@@ -11,11 +11,11 @@ export default class App extends Component {
 
     componentDidMount() {
         setInterval(() => this.fetchData(), 1000);
-
+/*
         fetch(`/chartData?from=1561431600000&to=${Date.now()}`)
         .then(response => response.json())
         .then( chartData => this.setState({ chartData }) )
-        .catch(error => console.error(error))
+        .catch(error => console.error(error))*/
     }
 
     fetchData() {
@@ -33,7 +33,7 @@ export default class App extends Component {
         return (
          <div>
             <DisplayData temperature={temperature} humedity={humedity}/>
-            <Chart data={chartData} />
+            <Chart />
         </div>
         );
     }
