@@ -10,15 +10,15 @@ class Chart extends Component {
 
     initializeChart() {
         const data = [ 
-            { timeStamp: 1561431600000, temperature: 12, humidity: 43 },
-            { timeStamp: 1561431600000, temperature: 17, humidity: 80 },
-            { timeStamp: 1561431600000, temperature: 16, humidity: 70 },
-            { timeStamp: 1561431600000, temperature: 19, humidity: 67 },
-            { timeStamp: 1561431600000, temperature: 20, humidity: 40 },
-            { timeStamp: 1561431600000, temperature: 18, humidity: 88 },
-            { timeStamp: 1561431600000, temperature: 28, humidity: 55 },
-            { timeStamp: 1561431600000, temperature: 25, humidity: 53 },
-            { timeStamp: 1561431600000, temperature: 26, humidity: 50 }
+            { timeStamp: 4, temperature: 12, humidity: 43 },
+            { timeStamp: 5, temperature: 17, humidity: 80 },
+            { timeStamp: 7, temperature: 16, humidity: 70 },
+            { timeStamp: 9, temperature: 19, humidity: 67 },
+            { timeStamp: 11, temperature: 20, humidity: 40 },
+            { timeStamp: 14, temperature: 18, humidity: 88 },
+            { timeStamp: 16, temperature: 28, humidity: 55 },
+            { timeStamp: 18, temperature: 25, humidity: 53 },
+            { timeStamp: 20, temperature: 26, humidity: 50 }
          ];
         function formatDate(date) {
             var monthNames = [
@@ -40,6 +40,27 @@ class Chart extends Component {
         var margin = {top: 10, right: 30, bottom: 30, left: 60},
         width = window.innerWidth - 10,
         height = 400;
+
+
+        /* Scale */
+        var xScale = d3.scaleLinear()
+        .domain([0, 25 ])
+        .range([0, width]);
+
+        var yScale = d3.scaleLinear()
+        .domain([0, 28])
+        .range([height, 0]);
+
+        /* Add Axis into SVG */
+        var xAxis = d3.axisBottom(xScale).ticks(5);
+        var yAxis = d3.axisLeft(yScale).ticks(5);
+
+        /* Add line into SVG */
+        var line = d3.line()
+        .x( d => xScale(d.timeStamp))
+        .y(d => yScale(d.temperature))
+        .curve(d3.curveMonotoneX) // apply smoothing to the line
+
         var svg = d3.select("#chart")
         .append("svg")
         .attr("width", width)
@@ -47,31 +68,13 @@ class Chart extends Component {
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-        /* Scale */
-        var xScale = d3.scaleTime()
-        .domain(d3.extent(data, d => formatDate(new Date(d.timeStamp))))
-        .range([0, width]);
-
-        var yScale = d3.scaleLinear()
-        .domain([0, d3.max(data, d => d.temperature)])
-        .range([height, 0]);
-/*
-        var x = d3.scaleTime().domain([ new Date(data[0].timeStamp), new Date(data[data.length -1].timeStamp)]).rangeRound([0, width]);
-        var y = d3.scaleLinear().range([height, 0]);
-        var valueline = d3.line()
-        .x(function(d) { return x( d.timeStamp ); })
-        .y(function(d) { return y( d.temperature ); });
-        */
-
-        /* Add Axis into SVG */
-        var xAxis = d3.axisBottom(xScale).ticks(5);
-        var yAxis = d3.axisLeft(yScale).ticks(5);
-
+        // X axis line
         svg.append("g")
         .attr("class", "x axis")
         .attr("transform", `translate(0, ${height - 50})`)
         .call(xAxis);
-
+        
+        // Y axis line
         svg.append("g")
         .attr("class", "y axis")
         .call(yAxis)
@@ -81,25 +84,25 @@ class Chart extends Component {
         .attr("fill", "#000")
         .text("Temperature Average");
 
-        /* Add line into SVG */
-        var line = d3.line()
-        .x(d => xScale(d))
-        .y(d => yScale(d));
+        svg.append("path")
+        .datum(data) // 10. Binds data to the line 
+        .attr("class", "line") // Assign a class for styling 
+        .attr("d", line); // 11. Calls the line generator 
 
-        let lines = svg.append('g')
+  /*      let lines = svg.append('g')
         .attr('class', 'lines')
-        .selectAll('.line-group')
-        .data(data).enter()
         .append('g')
         .attr('class', 'line-group')  
+        .selectAll('.line-group')
         .append('path')
+        .data(data)
         .attr('class', 'line')  
-        .attr('d', d => line(d))
+        .attr('d', d => line)//Math.floor(Math.random() * Math.floor(400)))
         .style('stroke', (d, i) => color(i))
         .style('opacity', lineOpacity)
    
 
-       /* let X = 0;
+        let X = 0;
         for(let _data of data) {
             console.log(_data)
             svg.append("text")
