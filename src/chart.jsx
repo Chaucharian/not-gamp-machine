@@ -10,30 +10,31 @@ class Chart extends Component {
 
     initializeChart() {
         const data = [ 
-            { timeStamp: 4, temperature: 12, humidity: 43 },
-            { timeStamp: 5, temperature: 17, humidity: 80 },
-            { timeStamp: 7, temperature: 16, humidity: 70 },
-            { timeStamp: 9, temperature: 19, humidity: 67 },
-            { timeStamp: 11, temperature: 20, humidity: 40 },
-            { timeStamp: 14, temperature: 18, humidity: 88 },
-            { timeStamp: 13, temperature: 28, humidity: 55 },
-            { timeStamp: 18, temperature: 25, humidity: 53 },
-            { timeStamp: 20, temperature: 26, humidity: 50 }
+            { timeStamp: 1562731798127, temperature: 12, humidity: 43 },
+            { timeStamp: 1562733598127, temperature: 17, humidity: 80 },
+            { timeStamp: 1562734498135, temperature: 16, humidity: 70 },
+            { timeStamp: 1562737198141, temperature: 19, humidity: 67 },
+            { timeStamp: 1562747098165, temperature: 20, humidity: 40 },
+            { timeStamp: 1562753398172, temperature: 18, humidity: 88 },
+            { timeStamp: 1562756998183, temperature: 28, humidity: 55 },
+            { timeStamp: 1562765998188, temperature: 25, humidity: 53 },
+            { timeStamp: 1562765098188, temperature: 26, humidity: 50 }
          ];
-        function formatDate(date) {
-            var monthNames = [
+        const formatDate = date => {
+            const monthNames = [
                 "January", "February", "March",
                 "April", "May", "June", "July",
                 "August", "September", "October",
                 "November", "December"
             ];
+            const day = date.getDate();
+            const monthIndex = date.getMonth();
+            const hour = date.getHours();
+            const minutes = date.getMinutes() > 9 ? date.getMinutes() : '0'+date.getMinutes();   
             
-            var day = date.getDate();
-            var monthIndex = date.getMonth();
-            var year = date.getFullYear();
-            
-            return day + ' ' + monthNames[monthIndex] + ' ' + year;
+            return day + ' ' + monthNames[monthIndex] + ' ' + hour + ':' + minutes;
         }
+
         var color = d3.scaleOrdinal(d3.schemeCategory10);
         var lineOpacity = "0.25";
 
@@ -41,10 +42,8 @@ class Chart extends Component {
         width = window.innerWidth - margin.left,
         height = 400;
 
-
         /* Scale */
         var xScale = d3.scaleLinear()
-        .domain([0, 25 ])
         .range([0, width]);
 
         var yScale = d3.scaleLinear()
@@ -60,7 +59,6 @@ class Chart extends Component {
         .x( d => xScale(d.timeStamp))
         .y(d => yScale(d.temperature))
         .curve(d3.curveMonotoneX) // apply smoothing to the line
-
         
         var lineHumidity = d3.line()
         .x( d => xScale(d.timeStamp))
@@ -73,7 +71,7 @@ class Chart extends Component {
         .attr("height", height)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
+/*
         // X axis line
         svg.append("g")
         .attr("class", "x axis")
@@ -88,20 +86,46 @@ class Chart extends Component {
         .attr("y", 15)
         .attr("transform", "rotate(-90)")
         .attr("fill", "#000")
-        .text("Temperature Average");
+        .text("Max Scale");
 
         svg.append("path")
-        .datum(data) // 10. Binds data to the line 
+        .datum(data)
         .attr("class", "line") // Assign a class for styling 
-        .attr("d", lineTemperature) // 11. Calls the line generator 
-
+        .attr("d", lineTemperature) // Calls the line generator 
+        .attr("transform", `translate(${margin.right}, -5)`)
+        
         svg.append("path")
-        .datum(data) // 10. Binds data to the line 
+        .datum(data) 
         .attr("class", "line-humidity") // Assign a class for styling 
-        .attr("d", lineHumidity) // 11. Calls the line generator 
-        .attr("transform", `translate(0, 0)`)
+        .attr("d", lineHumidity) // Calls the line generator 
+        .attr("transform", `translate(${margin.right}, 0)`)
+*/
+            // format the data
+           /* data.forEach(function(d) {
+                d.timeStamp = formatDate(new Date(d.timeStamp));
+            });*/
 
+            data.forEach(function(d) {
+                d.timeStamp = new Date(d.timeStamp);
+            })
+            // Scale the range of the data
+            xScale.domain(d3.extent(data, function(d) { return d.timeStamp; }));
 
+            // Add the valueline path.
+            svg.append("path")
+                .data([data])
+                .attr("class", "line")
+                .attr("d", lineTemperature);
+
+            // Add the X Axis
+            svg.append("g")
+            .attr("transform", `translate(0, ${height - 50})`)
+            .call(d3.axisBottom(xScale)
+            .tickFormat( d3.timeFormat("%Y-%m-%d %H:%M:%S")).tickValues(data.map(function(d) { return new Date(d.timeStamp)})) )
+
+            // Add the Y Axis
+            svg.append("g")
+            .call(d3.axisLeft(yScale));
 
     }
 
