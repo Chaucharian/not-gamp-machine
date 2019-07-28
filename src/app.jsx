@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Container from '@material-ui/core/Container';
 import DisplayData from './list';
+import Chart from './chart';
 
 export default class App extends Component {
 
@@ -11,6 +12,11 @@ export default class App extends Component {
 
     componentDidMount() {
         setInterval(() => this.fetchData(), 1000);
+/*
+        fetch(`/chartData?from=1561431600000&to=${Date.now()}`)
+        .then(response => response.json())
+        .then( chartData => this.setState({ chartData }) )
+        .catch(error => console.error(error))*/
     }
 
     fetchData() {
@@ -20,17 +26,16 @@ export default class App extends Component {
             const { humedity, temperature } = data;
             this.setState({ temperature, humedity });
         })
-        .catch(error => console.error(error))
+        .catch(error => console.error(error));
     }
 
     render() {
-        const { humedity, temperature } = this.state;
+        const { humedity, temperature, chartData } = this.state;
         return (
-        <Container maxWidth="sm">
-            <div>
-                <DisplayData temperature={temperature} humedity={humedity}/>
-            </div>
-        </Container>
+         <div>
+            <DisplayData temperature={temperature} humedity={humedity}/>
+            <Chart />
+        </div>
         );
     }
 }
