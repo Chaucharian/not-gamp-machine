@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Container from '@material-ui/core/Container';
 import DisplayData from './list';
 import Chart from './chart';
 
@@ -31,10 +32,18 @@ export default class App extends Component {
     render() {
         const { humedity, temperature, chartData } = this.state;
         return (
+<<<<<<< HEAD
          <div>
             <DisplayData temperature={temperature} humedity={humedity}/>
             <Chart />
         </div>
+=======
+        <Container maxWidth="sm">
+            <div>
+                <DisplayData temperature={temperature} humedity={humedity}/>
+            </div>
+        </Container>
+>>>>>>> 2ba323fc00dc1000422b0c229a8c3562bf2692c8
         );
     }
 }
