@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/data', (req, res) => {
-  fetch('https://not-gamp-machine-api.herokuapp.com/data')
+  fetch('https://not-gamp-api.herokuapp.com/data')
   .then(res => res.json())
   .then(function(data) {
     const { humedity, temperature } = data;
@@ -29,7 +29,7 @@ app.get('/data', (req, res) => {
 
 app.get('/chartData', (req, res) => {
   const { from, to } = req.query;
-  fetch(`https://not-gamp-machine-api.herokuapp.com/getRange?from=${from}&to=${to}`)
+  fetch(`https://not-gamp-api.herokuapp.com/getRange?from=${from}&to=${to}`)
   .then(res => res.json())
   .then( data => {
     res.setHeader('Content-Type', 'application/json');
