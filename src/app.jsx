@@ -33,10 +33,14 @@ export default class App extends Component {
         const { humedity, temperature, chartData } = this.state;
         return (
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a71813aa24f4512a5454b07ee29b2b88fabb8788
          <div>
             <DisplayData temperature={temperature} humedity={humedity}/>
             <Chart />
         </div>
+<<<<<<< HEAD
 =======
         <Container maxWidth="sm">
             <div>
@@ -44,6 +48,8 @@ export default class App extends Component {
             </div>
         </Container>
 >>>>>>> 2ba323fc00dc1000422b0c229a8c3562bf2692c8
+=======
+>>>>>>> a71813aa24f4512a5454b07ee29b2b88fabb8788
         );
     }
 }
