@@ -35,7 +35,6 @@ export default class App extends Component {
 
          <div>
             <DisplayData temperature={temperature} humedity={humedity}/>
-            <Chart />
         </div>
         );
     }

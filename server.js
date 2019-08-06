@@ -3,6 +3,7 @@ const cors = require('cors');
 const fetch = require("node-fetch");
 const port = process.env.PORT || 8080;
 const app = express();
+const API_URL = 'not-gamp-machine-api';
 
 // the __dirname is the current directory from where the script is running
 app.use(cors());
@@ -14,7 +15,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/data', (req, res) => {
-  fetch('https://not-gamp-api.herokuapp.com/data')
+  fetch(`${API_URL}/data`)
   .then(res => res.json())
   .then(function(data) {
     const { humedity, temperature } = data;
@@ -29,7 +30,7 @@ app.get('/data', (req, res) => {
 
 app.get('/chartData', (req, res) => {
   const { from, to } = req.query;
-  fetch(`https://not-gamp-api.herokuapp.com/getRange?from=${from}&to=${to}`)
+  fetch(`${API_URL}/getRange?from=${from}&to=${to}`)
   .then(res => res.json())
   .then( data => {
     res.setHeader('Content-Type', 'application/json');
