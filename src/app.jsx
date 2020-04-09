@@ -20,11 +20,23 @@ const App = () => {
         .catch(error => console.error(error));
     }, []);
 
+<<<<<<< HEAD
     return (
         <>
             <DisplayData temperature={temperature} humedity={humedity}/>
         </>
     );
+=======
+    render() {
+        const { humedity, temperature, chartData } = this.state;
+        return (
+
+         <div>
+            <DisplayData temperature={temperature} humedity={humedity}/>
+        </div>
+        );
+    }
+>>>>>>> 49569efc8fa0d1a7059b1e7a80d4267b52db5660
 }
 
 export default App;
