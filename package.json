@@ -2,7 +2,6 @@
   "name": "system-ui",
   "version": "0.0.1",
   "description": "front end to visualize gamp machine data",
-  "main": "main.js",
   "scripts": {
     "start": "node server.js",
     "develop": "parcel ./src/index.html",
@@ -15,7 +14,9 @@
     "@material-ui/core": "^4.0.0",
     "@material-ui/icons": "^4.0.0",
     "cors": "^2.8.5",
+    "d3": "^5.9.7",
     "express": "^4.16.4",
+    "firebase-admin": "^8.10.0",
     "node-fetch": "^2.5.0",
     "parcel": "^1.12.3",
     "parcel-bundler": "^1.12.3",

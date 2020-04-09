@@ -1,36 +1,30 @@
-import React, { Component } from 'react';
-import Container from '@material-ui/core/Container';
-import DisplayData from './list';
+import React, { useEffect, useState } from 'react';
+import { getChartData, getConditions } from './api';
+import DisplayData from './displayData';
 
-export default class App extends Component {
+const App = () => {
+    const [currentTime, updateTime] = useState(Date.now());
+    const [{ humedity, temperature}, setConditions] = useState({ humedity: 0, temperature: 0});
 
-    constructor(...args) {
-        super(...args);
-        this.state = {};
-    }
+    // useEffect( () => {
+    //     const id = setInterval(() => updateTime(Date.now()), 1000);
 
-    componentDidMount() {
-        setInterval(() => this.fetchData(), 1000);
-    }
+    //     getConditions().then( ({temperature, humedity }) => setConditions({ temperature, humedity }) )
+    //     .catch(error => console.error(error));
 
-    fetchData() {
-        fetch('/data')
-        .then(response => response.json())
-        .then(data => {
-            const { humedity, temperature } = data;
-            this.setState({ temperature, humedity });
-        })
-        .catch(error => console.error(error))
-    }
+    //     return () => clearInterval(id);
+    // }, [currentTime]);
 
-    render() {
-        const { humedity, temperature } = this.state;
-        return (
-        <Container maxWidth="sm">
-            <div>
-                <DisplayData temperature={temperature} humedity={humedity}/>
-            </div>
-        </Container>
-        );
-    }
+    useEffect( () => {
+        getChartData(1565408398127, 1568086798127).then( ({temperature, humedity }) => setConditions({ temperature, humedity }) )
+        .catch(error => console.error(error));
+    }, []);
+
+    return (
+        <>
+            <DisplayData temperature={temperature} humedity={humedity}/>
+        </>
+    );
 }
+
+export default App;
