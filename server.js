@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.static('dist'));
 app.listen(port, '0.0.0.0', () => console.log(`Serving UI at ${port}!`));
 
-app.get('/', (req, res) => res.sendFile('index.html'));
+app.get('/not-gamp-machine', (req, res) => res.sendFile('index.html'));
 
 firebase.initializeApp({
   credential: firebase.credential.cert(firebaseCredentials),
