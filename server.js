@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.static('dist'));
 app.listen(port, '0.0.0.0', () => console.log(`Serving UI at ${port}!`));
 
-app.get('/', (req, res) => res.sendFile('index.html'));
+app.get('/not-gamp-machine/api', (req, res) => res.sendFile('index.html'));
 
 firebase.initializeApp({
   credential: firebase.credential.cert(firebaseCredentials),
@@ -42,13 +42,13 @@ function readSensorRange(from, to) {
   });
 }
 
-app.get('/set', (req, res) => {
+app.get('/not-gamp-machine/api/conditions', (req, res) => {
   humedity = req.query.h;
   temperature = req.query.t;
   res.end();
 });
 
-app.get('/getRange', (req, res) => {
+app.get('/not-gamp-machine/api/getRange', (req, res) => {
   const { from, to } = req.query;
   readSensorRange(from, to).then(data => {
     console.log(" DATA ",data);
@@ -62,7 +62,7 @@ app.get('/getRange', (req, res) => {
   });
 });
 
-app.get('/getConditions', (req, res) => {
+app.get('/not-gamp-machine/api/getConditions', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   res.status(200).json({ humedity, temperature });
 });
