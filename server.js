@@ -10,26 +10,27 @@ let humedity = 0, temperature = 0;
 
 app.use(cors());
 app.use(express.static(distPath));
+app.use("/", express.static(distPath));
 app.listen(port, '0.0.0.0', () => console.log(`Serving UI at ${port}!`));
 
-app.get('/not-gamp-machine/api', (req, res) => res.sendFile(distPath+'/index.html'));
+app.get('/not-gamp-machine', (req, res) => res.sendFile(distPath+'/index.html'));
 
 firebase.initializeApp({
   credential: firebase.credential.cert(firebaseCredentials),
   databaseURL: "https://not-gamp-machine.firebaseio.com"
 });
 
-// setInterval(() => writeSensorData(temperature, humedity), 900*1000);// (900*1000) = 15 min
+function writeSensorData(temperature, humedity) {
+  const timestamp = Date.now();
+  firebase.database().ref('sensordata/data').push({
+    temperature,
+    humedity,
+    timestamp
+  });
+  console.log(`Data sent to FireBase correctly at ${timestamp}`);
+}
 
-// function writeSensorData(temperature, humedity) {
-//   const timestamp = Date.now();
-//   firebase.database().ref('sensordata/data').push({
-//     temperature,
-//     humedity,
-//     timestamp
-//   });
-//   console.log(`Data sent to FireBase correctly at ${timestamp}`);
-// }
+setInterval(() => writeSensorData(temperature, humedity), 900*1000);// (900*1000) = 15 min
 
 function readSensorRange(from, to) {
   let chartData = [];
