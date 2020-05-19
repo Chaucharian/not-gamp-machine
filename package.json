@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node server.js",
     "develop": "parcel ./src/index.html",
-    "build": "parcel build ./src/index.html"
+    "build": "parcel build ./src/index.html --public-url ./not-gamp-machine/dist/"
   },
   "author": "AS",
   "license": "MIT",
