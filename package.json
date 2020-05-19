@@ -5,8 +5,7 @@
   "scripts": {
     "start": "node server.js",
     "develop": "parcel ./src/index.html",
-    "build": "parcel build ./src/index.html",
-    "heroku-postbuild": "parcel build ./src/index.html"
+    "build": "parcel build ./src/index.html"
   },
   "author": "AS",
   "license": "MIT",
