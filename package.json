@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "description": "front end to visualize gamp machine data",
   "scripts": {
-    "start": "node server.js",
+    "start": "pm2 start ./server.js --name notgampmachine --watch",
     "develop": "parcel ./src/index.html",
-    "build": "parcel build ./src/index.html --public-url ./not-gamp-machine/dist/"
+    "build": "parcel build ./src/index.html --public-url ./not-gamp-machine/dist/",    
   },
   "author": "AS",
   "license": "MIT",
