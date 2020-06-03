@@ -5,7 +5,7 @@
   "scripts": {
     "start": "npm run build && pm2 start ./server.js --name notgampmachine --watch",
     "develop": "parcel ./src/index.html",
-    "build": "parcel build ./src/index.html --public-url ./not-gamp-machine/dist/"  
+    "build": "parcel build ./src/index.html --public-url ./not-gamp-machine/dist/"
   },
   "author": "AS",
   "license": "MIT",
@@ -20,7 +20,8 @@
     "parcel": "^1.12.3",
     "parcel-bundler": "^1.12.3",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "react-google-charts": "^3.0.15"
   },
   "devDependencies": {
     "cssnano": "^4.1.10"

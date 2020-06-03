@@ -11,7 +11,7 @@ let humedity = 0, temperature = 0;
 app.use(cors());
 app.use(express.static(distPath));
 app.use("/not-gamp-machine/dist", express.static(distPath));
-app.listen(port, '0.0.0.0', () => console.log(`Serving UI at ${port}!`));
+app.listen(port, '0.0.0.0', () => console.log(`Serving API at ${port}!`));
 
 app.get('/not-gamp-machine', (req, res) => res.sendFile(distPath+'/index.html'));
 

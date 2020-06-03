@@ -7,8 +7,6 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import BrightnessMediumIcon from '@material-ui/icons/BrightnessMedium';
 import WavesIcon from '@material-ui/icons/Waves';
-import BeachAccessIcon from '@material-ui/icons/BeachAccess';
-import { brotliDecompress } from 'zlib';
 
 const useStyles = makeStyles(theme => ({
   root: {
