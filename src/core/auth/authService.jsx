@@ -2,9 +2,9 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/messaging';
 
-export class AuthService {
+export default class AuthService {
   constructor() {
-    this.auth = firebase
+    this.firebase = firebase
       .initializeApp({
         apiKey: "AIzaSyBbI_s6AoyogF-uHZBbqK73fHic4iwh8mY",
         authDomain: "not-gamp-machine.firebaseapp.com",
@@ -17,12 +17,17 @@ export class AuthService {
       .auth();
   }
 
-  login(email, password) {
-    return this.auth.signInWithEmailAndPassword(email, password);
+  login({ email, password }) {
+    return this.firebase.signInWithEmailAndPassword(email, password);
   }
 
   signIn(email, password) {
-    return this.auth.createUserWithEmailAndPassword(email, password);
+    return this.firebase.createUserWithEmailAndPassword(email, password);
   }
+
+  logout() {
+    this.firebase.signOut();
+  }
+  
   
 }
