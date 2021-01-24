@@ -7,14 +7,19 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import BrightnessMediumIcon from '@material-ui/icons/BrightnessMedium';
 import WavesIcon from '@material-ui/icons/Waves';
+import { Box } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
+    display: 'flex',
     width: '100%',
     maxWidth: 360,
     fontWeight : '800 !important',
     backgroundColor: theme.palette.grey,
-  }
+    "& p": {
+      color: "#FFF"
+    }
+  },
 }));
 
 function DisplayData(props) {
@@ -22,14 +27,15 @@ function DisplayData(props) {
 
   const {temperature,humedity}=props;
   return (
-    <List className={classes.root}>
+    <Box display="flex" justifyContent="center" >
+       <List className={classes.root}>
       <ListItem >
         <ListItemAvatar>
           <Avatar>
             <BrightnessMediumIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Temperature" secondary={temperature} />
+        <ListItemText primary="Temperature" secondary={`${temperature}º`} />
       </ListItem>
       <ListItem>
         <ListItemAvatar>
@@ -37,9 +43,10 @@ function DisplayData(props) {
             <WavesIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Humidity" secondary={humedity} />
+        <ListItemText primary="Humidity" secondary={`${humedity}%`} />
       </ListItem>
     </List>
+    </Box>
   );
 }
 

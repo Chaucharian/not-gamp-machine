@@ -13,8 +13,8 @@ const styles = {
 
 const Login = (props) => {
     const { classes } = props;
-    const [loading, setLoading] = useState(true);
-    const { auth, user: { userLogged, setUserLogged }  } = useAuth();
+    // const [loading, setLoading] = useState(true);
+    const { auth, user: { userLogged }  } = useAuth();
     const history = useHistory();
     const location = useLocation();
 
@@ -23,28 +23,15 @@ const Login = (props) => {
     }
 
     useEffect(() => {
-        auth.firebase.onAuthStateChanged((user) => {
-            setUserLogged(true);
-            setLoading(false);
-        });
-      }, [auth]);
-
-    useEffect(() => {
         if(userLogged) {
             history.push('/dashboard');
         }
       }, [userLogged]);
 
-
-    return (
-        loading ? 
-        <h1>Loading...</h1> 
-        :
-        <>
-            <div className={classes.centerContainer}>
-                <LoginForm onSubmit={login} />
-            </div>
-        </>
+      return (
+        <div className={classes.centerContainer}>
+            <LoginForm onSubmit={login} />
+        </div>
     )
 }
 

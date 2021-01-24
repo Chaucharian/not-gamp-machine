@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { getChartData, getConditions } from '../api';
-import DisplayData from '../displayData';
-import ChartData from '../chart';
+import DisplayData from '../components/displayData';
+import Chart from '../components/chart';
 import { subDays, addHours, format } from 'date-fns';
-import Draggable from 'react-draggable';
+import { Grid } from '@material-ui/core';
 
 const Dashboard = () => {
     const [currentTime, updateTime] = useState(Date.now());
@@ -34,19 +34,12 @@ const Dashboard = () => {
     }, []);
     
     return (
-        <>
-    <Draggable
-    
-        // onStart={this.handleStart}
-        // onDrag={this.handleDrag}
-        // onStop={this.handleStop}>
-        >
-            <>
-            <DisplayData temperature={temperature} humedity={humedity}/>
-            { chartData.length > 0 && <ChartData data={chartData}/> }
-            </>
-    </Draggable>
-        </>
+        <Grid container spacing={1} justify='center'>
+            <Grid item>
+                <DisplayData temperature={temperature} humedity={humedity}/>
+                { chartData.length > 0 && <Chart data={chartData}/> }
+            </Grid>
+        </Grid>
     );
 }
 export default Dashboard;
