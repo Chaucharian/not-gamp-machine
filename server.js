@@ -13,7 +13,7 @@ app.use(express.static(distPath));
 app.use("/not-gamp-machine/dist", express.static(distPath));
 app.listen(port, '0.0.0.0', () => console.log(`Serving API at ${port}!`));
 
-app.get('/not-gamp-machine', (req, res) => res.sendFile(distPath+'/index.html'));
+setInterval(() => writeSensorData(temperature, humedity), 900*1000*8);// (900*1000*8) = 2hs
 
 firebase.initializeApp({
   credential: firebase.credential.cert(firebaseCredentials),
@@ -30,7 +30,6 @@ function writeSensorData(temperature, humedity) {
   console.log(`Data sent to FireBase correctly at ${timestamp}`);
 }
 
-setInterval(() => writeSensorData(temperature, humedity), 900*1000);// (900*1000) = 15 min
 
 function readSensorRange(from, to) {
   let chartData = [];
@@ -44,6 +43,8 @@ function readSensorRange(from, to) {
     return chartData;
   });
 }
+
+app.get('/not-gamp-machine', (res) => res.sendFile(distPath+'/index.html'));
 
 app.get('/not-gamp-machine/api/conditions', (req, res) => {
   humedity = req.query.h;
@@ -65,7 +66,7 @@ app.get('/not-gamp-machine/api/getRange', (req, res) => {
   });
 });
 
-app.get('/not-gamp-machine/api/getConditions', (req, res) => {
+app.get('/not-gamp-machine/api/getConditions', (res) => {
   res.setHeader('Content-Type', 'application/json');
   res.status(200).json({ humedity, temperature });
 });
