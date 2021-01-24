@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getChartData, getConditions } from '../api';
 import DisplayData from '../components/displayData';
 import Chart from '../components/chart';
-import { subDays, addHours, format } from 'date-fns';
+import { subDays } from 'date-fns';
 import { Grid } from '@material-ui/core';
 
 const Dashboard = () => {
@@ -11,7 +11,7 @@ const Dashboard = () => {
     let [ chartData, setChartData] = useState([]);
 
     const normalizeResponse = ({ data: response }) => {
-        const chartData = [['Time', 'Temp', 'Humidity']];
+        const chartData = [['Time', 'Humidity', 'Temp']];
         response.map( data => {
             data.temperature !== 0 && chartData.push([new Date(data.timestamp).getHours()+"", Number(data.temperature.split(".")[0]), Number(data.humedity.split(".")[0])]);
         });

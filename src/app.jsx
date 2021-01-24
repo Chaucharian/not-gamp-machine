@@ -13,7 +13,7 @@ const App = () => {
     return (
         <AuthProvider auth={new AuthService()}>
             <ViewLoader>
-                <Router>
+                <Router basename="/not-gamp-machine" >
                     <Switch>
                         <PrivateRoute path='/dashboard' component={Dashboard} />
                         <Route path='/login' component={Login} />
