@@ -1,6 +1,6 @@
 
 const { exec } = require('child_process');
-const  https = require('https');
+const  https = require('node-fetch');
 
 exec('gpio mode 0 out');
 
@@ -13,10 +13,8 @@ function transformData(data, callback) {
 
 function sendData(data) {
   const { temperature, humidity } = data;
-  https.get(`https://notgamp.marplacode.com/api/conditions?t=${temperature}&h=${humidity}`,res => {
+  https(`http://notgamp.marplacode.com/api/conditions?t=${temperature.slice(0,5)}&h=${humidity.slice(0,5)}`).then(res => {
     console.log('statusCode:', res.statusCode);
-  }).on('error', (e) => {
-    console.error(e);
   });
 }
 
