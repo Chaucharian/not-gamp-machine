@@ -30,7 +30,6 @@ function writeSensorData(temperature, humedity) {
   console.log(`Data sent to FireBase correctly at ${timestamp}`);
 }
 
-
 function readSensorRange(from, to) {
   let chartData = [];
   return firebase.database().ref('sensordata/data').once('value').then(function (snapshot) {
@@ -44,15 +43,15 @@ function readSensorRange(from, to) {
   });
 }
 
-app.get('/not-gamp-machine', (res) => res.sendFile(distPath+'/index.html'));
+app.get('/', (res) => res.sendFile(distPath+'/index.html'));
 
-app.get('/not-gamp-machine/api/conditions', (req, res) => {
+app.post('/api/conditions', (req, res) => {
   humedity = req.query.h;
   temperature = req.query.t;
   res.end();
 });
 
-app.get('/not-gamp-machine/api/getRange', (req, res) => {
+app.get('/api/getRange', (req, res) => {
   const { from, to } = req.query;
   readSensorRange(from, to).then(data => {
     console.log(" DATA ",data);
@@ -61,12 +60,10 @@ app.get('/not-gamp-machine/api/getRange', (req, res) => {
     } else {
       console.log('Data filtered correctly');
     }
-    res.setHeader('Content-Type', 'application/json');
     res.status(200).json({ data });
   });
 });
 
-app.get('/not-gamp-machine/api/getConditions', (res) => {
-  res.setHeader('Content-Type', 'application/json');
+app.get('/api/getConditions', (res) => {
   res.status(200).json({ humedity, temperature });
 });
