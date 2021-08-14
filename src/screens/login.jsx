@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 import { withStyles } from '@material-ui/styles'
 import LoginForm from '../components/loginForm';
-import {useAuth } from '../core/auth/context';
+import { useAuth } from '../core/auth/context';
 
 const styles = {
     centerContainer: {
@@ -13,12 +13,8 @@ const styles = {
 
 const Login = (props) => {
     const { classes } = props;
-    const { auth, user: { userLogged }  } = useAuth();
+    const { login, user: { userLogged }  } = useAuth();
     const history = useHistory();
-
-    const login = (user) => {
-        auth.login(user).then( () => history.push('/dashboard'));
-    }
 
     useEffect(() => {
         if(userLogged) {
@@ -28,7 +24,7 @@ const Login = (props) => {
 
       return (
         <div className={classes.centerContainer}>
-            <LoginForm onSubmit={login} />
+            <LoginForm onSubmit={login}/>
         </div>
     )
 }

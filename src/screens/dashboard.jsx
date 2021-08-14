@@ -4,11 +4,16 @@ import DisplayData from '../components/displayData';
 import Chart from '../components/chart';
 import { subDays } from 'date-fns';
 import { Grid } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { useAuth } from '../core/auth/context';
+
 
 const Dashboard = () => {
     const [currentTime, updateTime] = useState(Date.now());
     const [{ humedity, temperature}, setConditions] = useState({ humedity: 0, temperature: 0});
     let [ chartData, setChartData] = useState([]);
+    const  { logout } = useAuth();
 
     const normalizeResponse = ({ data: response }) => {
         const chartData = [['Time', 'Humidity', 'Temp']];
@@ -39,6 +44,9 @@ const Dashboard = () => {
                 <DisplayData temperature={temperature} humedity={humedity}/>
                 { chartData.length > 0 && <Chart data={chartData}/> }
             </Grid>
+        <IconButton style={{color:'white'}} onClick={(()=>{logout()})}>
+            <ExitToAppIcon/>
+        </IconButton>
         </Grid>
     );
 }
