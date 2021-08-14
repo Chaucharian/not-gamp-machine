@@ -22,7 +22,7 @@
     "express": "^4.16.4",
     "firebase": "^8.2.3",
     "firebase-admin": "^8.10.0",
-    "node-fetch": "^2.5.0",
+    "node-fetch": "^2.6.1",
     "parcel": "^1.12.3",
     "parcel-bundler": "^1.12.3",
     "react": "^16.8.0 || ^17.0.0",
