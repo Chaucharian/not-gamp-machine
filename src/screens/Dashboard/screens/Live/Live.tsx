@@ -3,13 +3,20 @@ import { SPACING } from "app/theme";
 import { useCamera } from "hooks/useCamera";
 import { useEffect, useRef, useState } from "react";
 import Prompt from "./components/Prompt";
-import { useStreaming } from "./hooks/useStreaming";
+import axios from "axios";
+import { useQuery } from "react-query";
 
 const Live = () => {
-  const ref = useRef<any>();
-  const ref2 = useRef<any>();
-  const ref3 = useRef<any>();
-  const { mode, startStreaming, viewStreaming } = useCamera(ref, ref2, ref3);
+  const canvasRef = useRef<any>();
+  const videoRef = useRef<any>();
+  const imgRef = useRef<any>();
+  const { data: config } = useQuery("feed", () =>
+    axios.get(`/enviroment/images/status`).then((data) => data)
+  );
+  const { mode, startStreaming, viewStreaming } = useCamera(
+    { canvasRef, videoRef, imgRef },
+    config?.data
+  );
 
   return (
     <Flex height="100%" justifyContent="center" alignItems="center">
@@ -31,7 +38,7 @@ const Live = () => {
       <Flex direction="column">
         <video
           autoPlay
-          ref={ref2}
+          ref={videoRef}
           style={{
             display: mode === "stream" ? "block" : "none",
           }}
@@ -40,7 +47,7 @@ const Live = () => {
         />
         <img
           alt="feed"
-          ref={ref3}
+          ref={imgRef}
           style={{
             display: mode === "viewer" ? "block" : "none",
             maxWidth: "100%",
@@ -49,55 +56,8 @@ const Live = () => {
         />
       </Flex>
 
-      <canvas ref={ref} style={{ display: "none" }} />
+      <canvas ref={canvasRef} style={{ display: "none" }} />
     </Flex>
-    // <Flex direction="column" height="100%" justifyContent="center">
-    //   <Flex justifyContent="center">
-    //     <View height='size-2400' backgroundColor="gray-100" width="100%">
-    //     <video
-    //       autoPlay
-    //       ref={ref2}
-    //       style={{
-    //         display: mode === "stream" ? "block" : "none",
-    //         maxWidth: "1080",
-    //       }}
-    //       width="100%"
-    //       height="100%"
-    //     />
-    //     <img
-    //       alt="feed"
-    //       ref={ref3}
-    //       style={{ display: mode === "viewer" ? "block" : "none" }}
-    //       width="100%"
-    //       height="100%"
-    //     />
-    //     <canvas
-    //       ref={ref}
-    //       // width="720"
-    //       // height="720"
-    //       style={{ position: "absolute", visibility: "hidden" }}
-    //     />
-    //       </View>
-    //   </Flex>
-    // <View>
-    //   <Button
-    //     variant="primary"
-    //     onPress={() => {
-    //       startStreaming();
-    //     }}
-    //   >
-    //     Stream
-    //   </Button>
-    //   <Button
-    //     variant="primary"
-    //     onPress={() => {
-    //       viewStreaming();
-    //     }}
-    //   >
-    //     View
-    //   </Button>
-    // </View>
-    // </Flex>
   );
 };
 

@@ -1,7 +1,12 @@
 import { useCallback, useState } from "react";
 import { useStreaming } from "screens/Dashboard/screens/Live/hooks/useStreaming";
 
-export const useCamera = (canvasRef: any, videoRef: any, imgRef: any) => {
+const TWO_HOURS = 1000 * 60 * 60 * 2;
+
+export const useCamera = (
+  { canvasRef, videoRef, imgRef }: any,
+  config: any
+) => {
   const [mode, setMode] = useState("");
   const { upload } = useStreaming(mode, ({ data: { image } }: any) => {
     imgRef.current.src = image;
@@ -24,11 +29,10 @@ export const useCamera = (canvasRef: any, videoRef: any, imgRef: any) => {
         canvasRef.current.width = videoWidth;
         canvasRef.current.height = videoHeight;
         canvasRef.current.getContext("2d").drawImage(videoRef.current, 0, 0);
-
         upload(canvasRef.current.toDataURL("image/webp"));
-      }, 5000);
+      }, config?.photoInterval ?? TWO_HOURS);
     }
-  }, [canvasRef, upload, videoRef]);
+  }, [canvasRef, config?.photoInterval, upload, videoRef]);
 
   const viewStreaming = useCallback(() => {
     setMode("viewer");
