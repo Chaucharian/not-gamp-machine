@@ -1,1 +1,1 @@
-export const SERVICE_URL = "http://localhost:8080";
+export const baseUrl = `/api/${process.env.REACT_APP_API_VERSION}/`;

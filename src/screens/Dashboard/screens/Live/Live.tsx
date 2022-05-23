@@ -1,9 +1,7 @@
-import { Button, Content, Flex, Heading, View } from "@adobe/react-spectrum";
-import { SPACING } from "app/theme";
-import { useCamera } from "hooks/useCamera";
-import { useEffect, useRef, useState } from "react";
+import { Flex } from "@adobe/react-spectrum";
+import { useCamera } from "./hooks/useCamera";
+import { useRef } from "react";
 import Prompt from "./components/Prompt";
-import { useStreaming } from "./hooks/useStreaming";
 
 const Live = () => {
   const ref = useRef<any>();

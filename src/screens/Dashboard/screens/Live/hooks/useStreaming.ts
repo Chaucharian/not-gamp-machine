@@ -1,13 +1,6 @@
-import { SERVICE_URL } from "api/services";
+import { baseUrl } from "api/services";
 import axios from "axios";
-import { useState } from "react";
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 
 export const useStreaming = (mode: string, onSuccess: any) => {
   const queryClient = useQueryClient();
@@ -15,7 +8,7 @@ export const useStreaming = (mode: string, onSuccess: any) => {
   const { mutate: upload } = useMutation(
     (image) =>
       axios
-        .post(`/enviroment/images/streaming`, {
+        .post(`${baseUrl}/enviroment/images/streaming`, {
           image,
         })
         .then((data) => console.log(data)),
@@ -29,7 +22,8 @@ export const useStreaming = (mode: string, onSuccess: any) => {
 
   const feed = useQuery(
     "feed",
-    () => axios.get(`/enviroment/images/streaming`).then((data) => data),
+    () =>
+      axios.get(`${baseUrl}/enviroment/images/streaming`).then((data) => data),
     { enabled: mode === "viewer", refetchInterval: 3000, onSuccess }
   );
 
