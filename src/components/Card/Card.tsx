@@ -8,6 +8,7 @@ export const Card = ({
   headerProps,
   bodyProps,
   openView,
+  priority, // this flag is to make the box bigger and use other style, see ideal ideal UI.jpeg
   overflow = true,
   animation,
 }: any) => {
