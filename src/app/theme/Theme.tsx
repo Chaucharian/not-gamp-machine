@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
 const Theme = createContext<any>({ changeTheme: () => {} });
 
 const ThemeProvider = ({ children, ...props }: any) => {
-  const [colorScheme, changeTheme] = useState("light");
+  const [colorScheme, changeTheme] = useState("dark");
 
   const onChange = () => {
     changeTheme(colorScheme === "dark" ? "light" : "dark");
