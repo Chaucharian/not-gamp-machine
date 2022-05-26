@@ -5,6 +5,8 @@ jobs:
     working_directory: ~/repo
     docker:
       - image: cimg/node:16.13.2
+    environment:
+      CI: false
     steps:
       - checkout
       - attach_workspace:
