@@ -24,7 +24,6 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "noUnusedLocals": true
   },
   "include": [
     "src/**/*"

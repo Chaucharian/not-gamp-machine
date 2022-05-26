@@ -55,7 +55,8 @@ const Stats = () => {
           <StatusCard
             heading="Lights"
             status="12/12"
-            icon={() => <LightIcon color={true ? "notice" : "negative"} />}
+            icon={() => <LightIcon color={"notice"} />}
+            // icon={() => <LightIcon color={true ? "notice" : "negative"} />}
           />
           <StatusCard
             heading="Cycle"

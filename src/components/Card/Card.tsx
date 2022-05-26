@@ -1,6 +1,5 @@
 import { useSpring } from "@react-spring/web";
 import { useState } from "react";
-import { StatusCard } from "screens/Dashboard/screens/Stats/components";
 import CardBody from "./CardBody";
 import CardHeader from "./CardHeader";
 
@@ -38,7 +37,7 @@ export const Card = ({
       open={open}
       overflow={overflow}
       onOpen={() => {
-        const a = springBox.start({
+        springBox.start({
           reverse: true,
           onStart: () => setOpen(true),
           onRest: (a) => {

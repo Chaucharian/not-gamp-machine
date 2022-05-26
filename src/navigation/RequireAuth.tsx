@@ -1,9 +1,5 @@
-import { FC, ReactElement } from "react";
-import {
-  Navigate,
-  RouteProps as NativeProps,
-  useLocation,
-} from "react-router-dom";
+import { FC } from "react";
+import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/auth";
 
 interface RouteProps {

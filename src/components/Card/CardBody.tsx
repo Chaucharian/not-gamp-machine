@@ -1,8 +1,4 @@
-import { Heading } from "@adobe/react-spectrum";
-import { Flex } from "@react-spectrum/layout";
 import { View } from "@react-spectrum/view";
-import { SPACING } from "app/theme";
-import { Text } from "components";
 
 export const CardBody = ({
   heading = "",

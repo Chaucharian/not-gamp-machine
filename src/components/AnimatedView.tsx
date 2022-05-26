@@ -1,6 +1,4 @@
-import { Flex } from "@react-spectrum/layout";
-import { View } from "@react-spectrum/view";
-import { animated, useSpring } from "@react-spring/web";
+import { animated } from "@react-spring/web";
 import { forwardRef } from "react";
 
 const AnimatedView = forwardRef<any, any>((props: any, ref: any) => {
