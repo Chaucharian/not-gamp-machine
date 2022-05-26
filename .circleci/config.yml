@@ -1,13 +1,13 @@
 version: 2.1
 
- jobs:
+jobs:
    build:
     working_directory: ~/repo
     docker:
       - image: cimg/node:16.13.2
     steps:
       - checkout
-       - attach_workspace:
+      - attach_workspace:
           at: ~/repo
       - run:
           name: Update NPM
@@ -32,7 +32,7 @@ version: 2.1
    deploy:
       working_directory: ~/repo
       machine: true
-     steps:
+      steps:
        - attach_workspace:
           at: ~/repo
        - run: 
@@ -41,10 +41,10 @@ version: 2.1
        - run:
            name: Deploy Over SSH 
            command: |
-          rsync -avz -e 'ssh' ./build $SSH_USER@$SSH_HOST:/home/not-gamp-machine 
+            rsync -avz -e 'ssh' ./build $SSH_USER@$SSH_HOST:/home/not-gamp-machine 
 #             ssh $SSH_USER@$SSH_HOST "cd /home/not-gamp-machine/ && mv "
 
- workflows:
+workflows:
    version: 2
    build-and-deploy:
      jobs:
