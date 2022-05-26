@@ -46,7 +46,7 @@ jobs:
           name: Deploy Over SSH
           command: |
             rsync -avz -e 'ssh' ./build $SSH_USER@$SSH_HOST:/home/not-gamp-machine
-#             ssh $SSH_USER@$SSH_HOST "cd /home/not-gamp-machine/ && mv "
+
 workflows:
   version: 2
   build-and-deploy:
