@@ -5,12 +5,8 @@ jobs:
     working_directory: ~/repo
     docker:
       - image: cimg/node:16.13.2
-    environment:
-      CI: false
     steps:
       - checkout
-      - attach_workspace:
-          at: ~/repo
       - run:
           name: Update NPM
           command: "sudo npm install -g npm"
@@ -30,16 +26,22 @@ jobs:
           key: app-build-cache-{{ .Branch }}
           paths:
             - ./build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
 
   deploy:
-    working_directory: ~/repo
     machine: true
     steps:
       - attach_workspace:
-          at: ~/repo
+          at: .
       - run:
           name: Install rsync to copy folder
           command: "sudo apt install rsync"
+      - run:
+          name: List files
+          command: ls
       - run:
           name: Deploy Over SSH
           command: |
