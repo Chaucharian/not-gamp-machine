@@ -1,1 +1,1 @@
-export const baseUrl = `/api/${process.env.REACT_APP_API_VERSION}/`;
+export const baseUrl = `/api/${process.env.REACT_APP_API_VERSION}`;
