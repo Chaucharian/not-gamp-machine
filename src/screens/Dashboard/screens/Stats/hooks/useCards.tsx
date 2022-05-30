@@ -12,7 +12,7 @@ const REFETCH_INTERVAL = 5000;
 
 export const useCards = () => {
   const {
-    data: { conditions },
+    data: { conditions, irrigation },
   } = useQuery<any>(
     [`${baseUrl}/enviroment/sensors/`],
     async ({ queryKey: [path] }: any) => {
@@ -22,7 +22,10 @@ export const useCards = () => {
       return response;
     },
     {
-      initialData: { conditions: { temperature: 0, humidity: 0 } },
+      initialData: {
+        conditions: { temperature: 0, humidity: 0 },
+        irrigation: { distance: 0 },
+      },
       refetchInterval: REFETCH_INTERVAL,
       keepPreviousData: false,
     }
@@ -45,6 +48,15 @@ export const useCards = () => {
           status: `${conditions?.humidity}º`,
           icon: () => {
             return <HumidityIcon />;
+          },
+        },
+      },
+      {
+        props: {
+          heading: "Water level",
+          status: `${irrigation?.distance}cm`,
+          icon: () => {
+            return <ProgressCircle />;
           },
         },
       },
