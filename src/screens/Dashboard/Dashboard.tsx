@@ -13,8 +13,8 @@ function Dashboard() {
       <Navigation />
       <Routes>
         <Route element={<Stats />} index />
-        <Route element={<Live />} path="live" />
-        <Route element={<Notifications />} path="notifications" />
+        <Route element={<Live />} path="/live" />
+        <Route element={<Notifications />} path="/notifications" />
       </Routes>
     </Flex>
   );

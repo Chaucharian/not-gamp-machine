@@ -8,7 +8,7 @@ const Live = () => {
   const ref2 = useRef<any>();
   const ref3 = useRef<any>();
   const { mode, startStreaming, viewStreaming } = useCamera(ref, ref2, ref3);
-
+  console.log("adsadsad");
   return (
     <Flex height="100%" justifyContent="center" alignItems="center">
       {!mode && (

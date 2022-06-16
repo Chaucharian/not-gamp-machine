@@ -15,15 +15,16 @@ function App() {
         <Router>
           <AuthProvider>
             <Routes>
-              {/* <Route element={<Login />} path="/login" /> */}
               <Route
-                index
+                path="*"
                 element={
                   // <RequireAuth>
                   <Dashboard />
                   // </RequireAuth>
                 }
               />
+              {/* <Route element={<Login />} path="/login" /> */}
+
               {/* <Route path="*" element={<Login />} /> */}
             </Routes>
           </AuthProvider>
