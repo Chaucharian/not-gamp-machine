@@ -17,12 +17,11 @@ function App() {
             <Routes>
               {/* <Route element={<Login />} path="/login" /> */}
               <Route
-                // path="dashboard/*"
-                path="*"
+                index
                 element={
-                  <RequireAuth>
-                    <Dashboard />
-                  </RequireAuth>
+                  // <RequireAuth>
+                  <Dashboard />
+                  // </RequireAuth>
                 }
               />
               {/* <Route path="*" element={<Login />} /> */}
