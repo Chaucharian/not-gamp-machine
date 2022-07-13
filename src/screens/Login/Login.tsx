@@ -12,7 +12,7 @@ import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 const Login = () => {
   const { session, saveSession } = useAuth();
   const location: any = useLocation();
-
+  console.log("Testing deploy marplacode");
   const onSubmit = (session: any) => {
     saveSession(session);
   };
